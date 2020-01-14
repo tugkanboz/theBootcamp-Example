@@ -3,7 +3,9 @@
     var reset = document.getElementById("reset");
     var p1Display = document.getElementById("p1score");
     var p2Display = document.getElementById("p2score");
-    var playing = document.getElementById("playing");
+    var numInput = document.querySelector("input");
+    var playingDisplay = document.querySelector("p span");
+
 
     var p1score = 0;
     var p2score = 0;
@@ -44,4 +46,9 @@
         p1Display.style.color = "black";
         p2Display.style.color = "black";
         gameOver = false;
+    });
+
+    numInput.addEventListener("change", function(){
+        playingDisplay.textContent = numInput.value;
+        winningGame = Number(numInput.value);
     });
