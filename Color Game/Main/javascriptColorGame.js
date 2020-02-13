@@ -39,6 +39,7 @@
                 squares[i].style.background = colors[i];
                 squares[i].style.display = "block";
         }
+
     });
 
 
