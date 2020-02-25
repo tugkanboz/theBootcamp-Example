@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
-app.set("view engine","ejs");
+app.set("view engine", "ejs");
 
 let posts = [
     {title: "Post 1", author: "Tugkan"},
@@ -13,20 +13,20 @@ let posts = [
 ];
 
 let love = [
-    "love","lovee","loveee","loveeee"
+    "love", "lovee", "loveee", "loveeee"
 ];
 
-app.get("/",function (req,res) {
+app.get("/", function (req, res) {
     res.render("home");
 });
 
-app.get("/fallinlovewith/:thing",function (req,res) {
+app.get("/fallinlovewith/:thing", function (req, res) {
     let thing = req.params.thing;
-    res.render("love",{thingVar:thing});
+    res.render("love", {thingVar: thing});
 });
 
-app.get("/posts",function (req,res) {
-    res.render("posts", {posts:posts, love:love});
+app.get("/posts", function (req, res) {
+    res.render("posts", {posts: posts, love: love});
 });
 
 app.post("/addLove", function (req, res) {
@@ -35,8 +35,7 @@ app.post("/addLove", function (req, res) {
     res.redirect("/posts");
 });
 
-
 //localhost way
-app.listen(3000, function() {
+app.listen(3000, function () {
     console.log('Server listening on port 3000');
 });
