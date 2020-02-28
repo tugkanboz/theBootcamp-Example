@@ -1,7 +1,10 @@
-const express = require('express'),
-    app = express(),
-    bodyParser = require('body-parser'),
-    mongoose = require('mongoose');
+const express       = require('express'),
+    app             = express(),
+    bodyParser      = require('body-parser'),
+    mongoose        = require('mongoose'),
+    Campground      = require('./models/campground'),
+    seedDB          = require('./seeds');
+
 
 mongoose.connect('mongodb://localhost/yelp_camp', {
     useNewUrlParser: true,
@@ -9,31 +12,8 @@ mongoose.connect('mongodb://localhost/yelp_camp', {
 });
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
+seedDB();
 
-//Schema Setup
-const campgroundSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    description: String
-});
-
-const Campground = mongoose.model("Campground", campgroundSchema);
-
-/*
-Campground.create(
-    {
-        name: "Salmon",
-        image: "https://digitalage.com.tr/wp-content/uploads/2014/05/Yandexin-g%C3%B6rsel-ile-g%C3%B6rsel-arama-%C3%B6zelli%C4%9Fi-hizmetinizde.jpg",
-        description: "this is a huge granite hill"
-    }, function (err, campground) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("created");
-            console.log(campground);
-        }
-    });
-*/
 
 app.get("/", function (req, res) {
     res.render("landing");
@@ -71,13 +51,15 @@ app.get("/campgrounds/new", function (req, res) {
     res.render("new");
 });
 
+
 //SHOW - Shows more info about one campground
 app.get("/campgrounds/:id",function (req,res) {
-    Campground.findById(req.params.id, function (err, foundCampground) {
+    Campground.findById(req.params.id).populate("comments").exec(function (err, foundCampground) {
         if(err)
         {
             console.log(err);
         }else{
+            console.log(foundCampground);
             res.render("show",{campground:foundCampground});
 
         }
