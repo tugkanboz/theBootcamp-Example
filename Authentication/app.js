@@ -18,7 +18,7 @@ app.use(require('express-session')({
   secret: "secret is the new secret.",
   saveUninitialized: false,
   resave: false
-}));
+})); 
 
 
 app.use(passport.initialize());
