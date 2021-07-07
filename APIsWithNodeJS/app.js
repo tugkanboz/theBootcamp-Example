@@ -4,6 +4,7 @@ let request = require('request');
 app.set("view engine", "ejs");
 
 
+
 /*
 request('http://www.omdbapi.com/?&apikey=thewdb&s=star', function (error, response, body) {
     console.error('error:', error); // Print the error if one occurred
